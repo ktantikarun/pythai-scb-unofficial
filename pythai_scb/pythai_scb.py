@@ -18,8 +18,9 @@ ACC_COLUMN_MAPPING = [
 class ScbCrawler:
 
     def __init__(self, username: str, password: str):
-        self.browser = webdriver.PhantomJS()
-        self.browser.get(SCBEASY_LOGIN_URL)
+        phantomjs_path = self._get_phantomjs_path()
+        self._browser = webdriver.PhantomJS(executable_path=phantomjs_path)
+        self._browser.get(SCBEASY_LOGIN_URL)
 
         if username is None or password is None:
             raise ValueError('Username and password must be specified')
@@ -28,6 +29,24 @@ class ScbCrawler:
 
         # Keep landing page for future features
         # self.landing_page = self.browser.copy()
+    def _get_phantomjs_path(self):
+        user_os = platform.system()
+
+        if user_os == "Darwin":
+            phantomjs_filepath = "phantomjs/phantomjs_mac"
+        elif user_os == 'Windows':
+            phantomjs_filepath = "phantomjs/phantomjs_windows.exe"
+        elif user_os == "Linux":
+            user_machine = platform.machine()
+            if user_machine == "x86_64":
+                phantomjs_filepath = "phantomjs/phantomjs_linux_64" 
+            else:       
+                phantomjs_filepath = "phantomjs/phantomjs_linux_32" 
+        else:
+            raise Exception('Unable to determine platform system')
+
+        phantomjs_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), phantomjs_filepath )
+        return phantomjs_path
 
     def _log_in(self, username: str, password: str):
         # Find elements required for logging in
