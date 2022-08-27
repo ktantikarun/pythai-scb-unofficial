@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
-import pandas as pd
 import datetime
+import os
+import pandas as pd
+import platform
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
@@ -15,13 +17,16 @@ class ScbCrawler:
         self._browser = webdriver.PhantomJS(executable_path=phantomjs_path)
         self._browser.get(SCBEASY_LOGIN_URL)
 
+        self._current_page = 'landing_page'
+
         if username is None or password is None:
             raise ValueError('Username and password must be specified')
 
         self._log_in(username, password)
 
         # Keep landing page for future features
-        # self.landing_page = self.browser.copy()
+        # self.landing_page = self._browser.copy()
+
     def _get_phantomjs_path(self):
         user_os = platform.system()
 
@@ -44,9 +49,9 @@ class ScbCrawler:
     def _log_in(self, username: str, password: str):
         # Find elements required for logging in
         try:
-            username_field = self.browser.find_element_by_xpath("//input[@name='LOGIN']")
-            password_field = self.browser.find_element_by_xpath("//input[@name='PASSWD']")
-            login_button = self.browser.find_element_by_xpath("//input[@name='lgin']")
+            username_field = self._browser.find_element_by_xpath("//input[@name='LOGIN']")
+            password_field = self._browser.find_element_by_xpath("//input[@name='PASSWD']")
+            login_button = self._browser.find_element_by_xpath("//input[@name='lgin']")
         except NoSuchElementException as err:
             raise ElementNotFound(err)
 
@@ -59,18 +64,21 @@ class ScbCrawler:
 
         # Check if logging-in is successful
         try:
-            logout_button = self.browser.find_element_by_xpath("//img[@name='Image2']")
+            logout_button = self._browser.find_element_by_xpath("//img[@name='Image2']")
+            self._current_page = 'logged_in'
         except NoSuchElementException as err:
             # The absence of logout button means login failure
             raise LoginError('Unable to login with the provided username and password')
     
     def get_account_bal(self):
         # Find my account button
-        my_account_button = self.browser.find_element_by_xpath("//img[@name='Image3']")
-        my_account_button.click()
+        if self._current_page != 'my_account':
+            my_account_button = self._browser.find_element_by_xpath("//img[@name='Image3']")
+            my_account_button.click()
+            self._current_page = 'my_account'
 
         # Look up for My accont table
-        soup = BeautifulSoup(self.browser.page_source, features='html.parser')
+        soup = BeautifulSoup(self._browser.page_source, features='html.parser')
         try:
             table_view = soup.find(id="DataProcess_SaCaGridView")
             tr_list = table_view.find_all('tr', {'class': "bd_th_blk11_rtlt10_tpbt5"})
