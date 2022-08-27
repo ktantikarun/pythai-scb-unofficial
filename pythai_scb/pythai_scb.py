@@ -5,15 +5,8 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 from pythai_scb.exceptions import LoginError, ElementNotFound
+from pythai_scb.config import SCBEASY_LOGIN_URL, ACC_COLUMN_MAPPING
 
-SCBEASY_LOGIN_URL = 'https://www.scbeasy.com/v1.4/site/presignon/index.asp'
-ACC_COLUMN_MAPPING = [
-    'type',
-    'acc_no',
-    'nickname',
-    'balance',
-    'date'
-]
 
 class ScbCrawler:
 
