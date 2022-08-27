@@ -10,7 +10,7 @@ from pythai_scb.exceptions import LoginError, ElementNotFound
 from pythai_scb.config import SCBEASY_LOGIN_URL, ACC_COLUMN_MAPPING
 
 
-class ScbCrawler:
+class PyThaiSCB:
 
     def __init__(self, username: str, password: str):
         phantomjs_path = self._get_phantomjs_path()
