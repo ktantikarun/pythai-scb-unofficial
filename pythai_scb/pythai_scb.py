@@ -28,6 +28,7 @@ class ScbCrawler:
         # self.landing_page = self._browser.copy()
 
     def _get_phantomjs_path(self):
+        """Get the path of phantomjs executable for the right os"""
         user_os = platform.system()
 
         if user_os == "Darwin":
@@ -47,6 +48,7 @@ class ScbCrawler:
         return phantomjs_path
 
     def _log_in(self, username: str, password: str):
+        """Logging into SCB Easy Net website"""
         # Find elements required for logging in
         try:
             username_field = self._browser.find_element_by_xpath("//input[@name='LOGIN']")
@@ -70,7 +72,8 @@ class ScbCrawler:
             # The absence of logout button means login failure
             raise LoginError('Unable to login with the provided username and password')
     
-    def get_account_bal(self):
+    def get_account_bal(self) -> dict:
+        """ Get SCB bank account balance in a dictionary format"""
         # Find my account button
         if self._current_page != 'my_account':
             my_account_button = self._browser.find_element_by_xpath("//img[@name='Image3']")
@@ -108,9 +111,9 @@ class ScbCrawler:
 
         return acc_dict
 
-    def get_account_bal_df(self):
+    def get_account_bal_df(self) -> pd.DataFrame:
+        """ Get SCB bank account balance in a dataframe format"""
         acc_idct = self.get_account_bal()
+        acc_df = pd.DataFrame.from_dict(acc_idct, orient='index')
 
-        bank_df = pd.DataFrame.from_dict(acc_idct, orient='index')
-
-        return bank_df
+        return acc_df
