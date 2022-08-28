@@ -29,7 +29,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Intended Audience :: Developers",
         "Intended Audience :: Financial and Insurance Industry",
-        "Intended Audience :: Information Technology"
+        "Intended Audience :: Information Technology",
         "Topic :: Office/Business :: Financial",
         "Topic :: Office/Business :: Financial :: Accounting",
         "Topic :: Scientific/Engineering :: Information Analysis",
