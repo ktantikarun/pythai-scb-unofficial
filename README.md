@@ -1,8 +1,7 @@
 # pythai-scb-unofficial
 
 ## Description
-PyThaiSCB is an unoffical python library to pull bank account balances data from SCB (Siam Commercial Bank) website using Selenium webdriver.
-Using web crawling under the hood, the function call is slow as it depends solely on the performance of SCB Easy Net website.
+PyThaiSCB is an unofficial python library to pull bank account balances data from SCB (Siam Commercial Bank) Easy Net website using Selenium webdriver. Using web crawling under the hood, the function call is slow as it depends solely on the performance of SCB Easy Net website.
 
 ### Available features:
 
@@ -10,7 +9,7 @@ Using web crawling under the hood, the function call is slow as it depends solel
 2. Feel free to reach out to me to request for more features !
 
 ## Disclaimer
-This is a non-profit project that was inititaed to solve the pain of having no official open APIs made available from the bank. The library DOES NOT keep your credentials. Nevertheless, use it at your own risk.
+This is a non-profit project that was initiated to solve the pain of having no official open APIs made available from the bank. The library DOES NOT keep your credentials. Nevertheless, use it at your own risk.
 
 ## Installation
 ```bash

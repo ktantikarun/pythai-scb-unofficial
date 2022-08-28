@@ -1,3 +1,6 @@
 .python-version
 .vscode/
 pythai_scb/__pycache__/*
+pythai_scb.egg-info/*
+build/
+dist/
