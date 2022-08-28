@@ -107,7 +107,7 @@ class PyThaiSCB:
             for idx in range(len(ACC_COLUMN_MAPPING)):
                 acc_dict[acc_no][ACC_COLUMN_MAPPING[idx]] = acc[idx]
             acc_dict[acc_no]['balance'] = acc_dict[acc_no]['balance'].replace(',', '')
-            acc_dict[acc_no]['date'] = datetime.date.today()
+            acc_dict[acc_no]['date'] = datetime.date.today().strftime('%Y-%m-%d')
 
         return acc_dict
 
