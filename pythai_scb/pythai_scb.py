@@ -37,7 +37,7 @@ class PyThaiSCB:
             phantomjs_filepath = "phantomjs/phantomjs_windows.exe"
         elif user_os == "Linux":
             user_machine = platform.machine()
-            if user_machine == "x86_64":
+            if user_machine == "x86_64" or user_machine == 'aarch64':
                 phantomjs_filepath = "phantomjs/phantomjs_linux_64" 
             else:       
                 phantomjs_filepath = "phantomjs/phantomjs_linux_32" 
