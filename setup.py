@@ -6,7 +6,7 @@ REQUIREMENTS = [i.strip() for i in open('requirements.txt').readlines()]
 
 setup(
     name='pythai_scb',
-    version='1.0.1',
+    version='1.0.2',
     packages=find_packages(),
     description='Unofficial SCB Bank Account Balance Check',
     long_description=README,
